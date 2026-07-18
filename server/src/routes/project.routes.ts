@@ -2,8 +2,12 @@ import { Router } from "express";
 import { createProjectHandler,updateProjectHandler,deleteProjectHandler,getProjectsHandler,getProjectByIdHandler } from "../controller/project.controller.js";
 import { validate } from "../middlewares/validate.js";
 import { createProjectSchema } from "../validations/project.validation.js";
+import { authenticate } from "../middlewares/auth.middleware.js";
 
 const router = Router();
+
+router.use(authenticate);
+
 router.get("/", getProjectsHandler);
 
 router.get("/:id", getProjectByIdHandler);
