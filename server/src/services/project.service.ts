@@ -33,8 +33,8 @@ export async function deleteProject(id: string) {
   await prisma.project.delete({ where: { id } });
 }
 
-export async function getProjects() {
-  const projects = await prisma.project.findMany({ orderBy: { createdAt: "desc" } })
+export async function getProjects(ownerId: string) {
+  const projects = await prisma.project.findMany({ where: { ownerId }, orderBy: { createdAt: "desc" } })
 
   return projects;
 }

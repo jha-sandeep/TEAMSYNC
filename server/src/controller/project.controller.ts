@@ -8,7 +8,7 @@ export async function createProjectHandler(
   const { name, description } = req.body;
 
   // Temporary ownerId until authentication is implemented
-  const ownerId = 'cmrksbqx20000tzwcvdb48xf6';
+  const ownerId = req.user.userId;
 
   const project = await createProject({
     name,
@@ -64,7 +64,7 @@ export async function getProjectsHandler(
   res: Response
 ) {
   try {
-    const project = await getProjects();
+    const project = await getProjects(req.user.userId);
     return res.status(200).json({ success: true, data: project });
   } catch (error) {
     if (error instanceof Error) {
